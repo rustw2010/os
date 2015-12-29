@@ -23,7 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^4%162+_9nm-1&dd&#!i81+m#1n3jl^p(ggan!k3r434$wf4yc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if 'DYNO' not in os.environ:
+    DEBUG = True
+else: # Running on Heroku
+    DEBUG = False
 
 
 
@@ -79,17 +82,23 @@ WSGI_APPLICATION = 'cherish.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'languageDB',
-        'USER': 'language',
-        'PASSWORD': 'xxxxxxxx',
-        'HOST': 'localhost',
-        'PORT': '',
+if DEBUG==True: # Running on the development environment
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'languageDB',
+            'USER': 'language',
+            'PASSWORD': 'xxxxxxxx',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
-}
+else: # Running on Heroku
+    # Parse database configuration from $DATABASE_URL
+    import dj_database_url
+    DATABASES = {'default':dj_database_url.config()}
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Password validation
@@ -131,3 +140,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+if DEBUG==False: # Running on Heroku
+    STATIC_ROOT = 'staticfiles'
