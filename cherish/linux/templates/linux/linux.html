@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<title>程式語言小百科</title>
+<meta charset=utf-8>
+</head>
+<body>
+
+{% if categories %}
+<h1 style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; text-align: center;">
+    <span style="font-size:48px;">linux介紹</span></h1>
+ <p style="text-align: justify;"><font size="5">Linux（收聽i英語發音：/ˈlɪnəks/ lin-əks）是一種自由和開放原始碼的類UNIX作業系統。該作業系統的核心由林納斯·托瓦茲在1991年10月5日首次發布。[5][6]，在加上使用者空間的應用程式之後，成
+ 為Linux作業系統。Linux也是自由軟體和開放原始碼軟體發展中最著名的例子。只要遵循GNU通用公共許可證，任何個人和機構都可以自由地使用Linux的所有底層原始碼，也可以自由地修改和再發布。大多數L
+ inux系統還包括像提供GUI的X Window之類的程式。除了一部分專家之外，大多數人都是直接使用Linux發行版，而不是自己選擇每一樣組件或自行設置。</p>
+ 嚴格來講，術語Linux只表示作業系統核心本身，但通常採用Linux核心來表達該意思。Linux則常用來指基於Linux核心的完整作業系統，包括GUI元件和許多其他實用工具。由於這些支援使用者空間的系統工具和庫主要由理察·斯托曼於1983年發起的GNU計劃提供
+ ，自由軟體基金會提議將該組合系統命名為GNU/Linux[7][8]，但Linux不屬於GNU計劃。</p>
+ Linux最初是作為支援英特爾x86架構的個人電腦的一個自由作業系統。目前Linux已經被移植到更多的電腦硬體平台，遠遠超出其他任何作業系統。Linux可以執行在伺服器和其他大型平台之上，如大型主機和超級電腦。世界上500個最快的超級電腦90％以上執行Linux套件或變種[9]，包括最快的前10名超級電腦執行的都是基於
+ Linux核心的作業系統[10]。Linux也廣泛應用在嵌入式系統上，如手機（Mobile Phone）、平板電腦（Tablet）、路由器（Router）、電視（TV）和電子遊戲機等。在行動裝置上廣泛使用的Android作業系
+ 統就是建立在Linux核心之上。</p>
+ 通常情況下，Linux被打包成供個人電腦和伺服器使用的Linux套件，一些流行的主流Linux發布版，包括Debian（及其衍生版本Ubuntu、Linux Mint）、Fedora（及其相關版本
+ Red Hat Enterprise Linux、CentOS）和openSUSE等。Linux套件包含Linux核心和支撐核心的實用程式和庫，通常還帶有大量可以滿足各類需求的應用程式。個人電腦使用的Linux套件通常包含X Window
+ 和一個相應的桌面環境，如GNOME或KDE。桌面Linux作業系統常用的應用程式，包括Firefox網頁瀏覽器、LibreOffice辦公軟體、GIMP圖像處理工具等。由於Linux是自由軟體，任何人都可以建立一個符合自己
+ 需求的Linux套件。</p>
+ <table>
+ <tr><th>相關連結</th><th></th></tr>
+ {% for category in categories %}
+ <tr>
+ <td>
+ <a href={% url 'linux:category' category.id %}>{{category.name}}</a>
+ </td>
+ 
+ <td>
+ <form method=post action={% url 'linux:deleteCategory' category.id %}>
+ {% csrf_token %}
+ <input type=submit value=刪除>
+ </form>
+ </td>
+ 
+ 
+ 
+<td>
+ <form action={% url 'linux:updateCategory' category.id %}>
+ <input type="submit" value=修改>
+ </form>
+ </td>
+ 
+ 
+ {% endfor %}
+ </table>
+{% else %}
+ <p><strong>目前尚未設定程式語言分類。</strong></p>
+{% endif %}
+<p><a href={% url 'linux:addCategory' %}>新增項目</a></p>
+<br>
+<p><a href={% url 'main:main' %}>回首頁</a></p>
+</body>
+</html>
