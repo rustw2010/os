@@ -20,6 +20,8 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^main/', include('main.urls', namespace='main')),
-    url(r'^wiki/', include('wiki.urls', namespace='wiki')),
+    url(r'^windows/', include('windows.urls', namespace='windows')),
+    url(r'^linux/', include('linux.urls', namespace='linux')),
+    url(r'^mac/', include('mac.urls', namespace='mac')),
     url(r'^.*', include('main.urls')),
 ]
