@@ -104,3 +104,4 @@ def updatePage(request, pageID):
         return render(request, template, {'form':form, 'page':page})
     form.save()
     return redirect(reverse('linux:category', args=(page.category.id,)))
+

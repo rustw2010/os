@@ -7,9 +7,42 @@
 <body>
 <h1 style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; text-align: center;">
     <span style="font-size:48px;">Windows介紹</span></h1>
-</body>
-</html>
+
 <p style="text-align: justify;"><font size="5">Microsoft Windows（中文有時譯作微軟視窗[5][6]，通常不譯）是微軟公司推出的一系列作業系統。它問世於1985年，起初是MS-DOS之下的桌面環境[7]，其後續版本逐漸發展成為主要以個人電腦和伺服器使
 用者設計的作業系統，並最終獲得了世界個人電腦作業系統的壟斷地位[8]。此作業系統可以在幾種不同類型的平台上執行，如個人電腦（PC）、行動裝置、伺服器（Server）和嵌入式系統等等，其中在個人電腦的
 領域應用內最為普遍。在2004年，國際資料資訊公司中一次有關未來發展趨勢的會議上，副董事長Avneesh Saxena宣布Windows擁有終端作業系統大約90％的市場份額[9]。目前最新的穩定性作業系統是於2015
 年7月29日發布的Windows 10。</font></p>
+
+{% if categories %}
+ <h2>程式語言分類：</h2>
+ <table>
+ <tr><th>分類名稱</th><th></th></tr>
+ {% for category in categories %}
+ <tr>
+ <td>
+ <a href={% url 'windows:category' category.id %}>{{category.name}}</a>
+ </td>
+ 
+ <td>
+<form method=post action={% url 'windows:deleteCategory' category.id %}>
+ {% csrf_token %}
+ <input type=submit value=刪除>
+ </form>
+ </td>
+ 
+ 
+ <td>
+ <form action={% url 'windows:updateCategory' category.id %}>
+ <input type="submit" value=修改>
+ </form>
+ </td>
+ 
+ 
+ </tr>
+ {% endfor %}
+ </table>
+{% else %}
+ <p><strong>目前尚未設定程式語言分類。</strong></p>
+{% endif %}
+<p><a href={% url 'windows:addCategory' %}>新增項目</a></p>
+<p><a href={% url 'main:main' %}>回首頁</a></p>
