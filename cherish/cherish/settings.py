@@ -31,7 +31,7 @@ else: # Running on Heroku
 
 
 
-# Application definition
+# Application definition    
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'main',
     'windows',
     'linux',
-    'mac',
     
     
 ]
