@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^main/', include('main.urls', namespace='main')),
     url(r'^windows/', include('windows.urls', namespace='windows')),
     url(r'^linux/', include('linux.urls', namespace='linux')),
+    url(r'^account/', include('account.urls', namespace='account')),
     url(r'^.*', include('main.urls')),
 ]

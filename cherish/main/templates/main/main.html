@@ -10,7 +10,18 @@
 </head>
 <body>
 <br>
+{% if user.is_authenticated %}
+ <p><a href={% url 'account:userLogout' %}>登出 ({{user.username}})</a></p>
+{% else %}
+<p><a href={% url 'account:register' %}>註冊</a></p>
+<p><a href={% url 'account:userLogin' %}>登入</a></p>
+{% endif %}
 
+{% if messages %}
+ {% for message in messages %}
+ <p {% if message.tags %} class={{message.tags}} {% endif %}>{{message}}</p>
+ {% endfor %}
+{% endif %}
 <p style="text-align: justify;"><font size="5">作業系統（<font color="blue">英語</font>：operating system，縮寫：OS）是管理電腦硬體與軟體資源的電腦程式，同時也是電腦系統的核心與基石。作業系統需要處理如管理與配置記憶體、決定系統資源供需的優
 先次序、控制輸入與輸出裝置、操作網路與管理檔案系統等基本事務。作業系統也提供一個讓使用者與系統互動的操作介面。 作業系統的型態非常多樣，不同機器安裝的作業系統可從簡單到複雜，可從非智慧型手機的嵌入式系統到超級電腦的大型作業系統。許多作業系統製造者對它涵蓋範疇的定義也不盡一致，例如有些作業系統整合了圖形化使用者介面，而有些僅使用命令列介面，而將圖形化使用者介面視為一種非必要的應用程式。
 作業系統理論在電腦科學中，為歷史悠久而又活躍的分支；而作業系統的設計與實作則是軟體工業的基礎與核心。</font></P>
@@ -81,7 +92,6 @@ OS到可以操作Microsoft Office的Windows CE都有。</font></p>
 <p style="text-align: center;"><a href={% url 'windows:windows' %}><img src={% static 'main/img/windows.png' %} alt=你好>
    
 <a href={% url 'linux:linux' %}><img src={% static 'main/img/linux.png' %} alt=你好>
-   
 
 
 </body>
